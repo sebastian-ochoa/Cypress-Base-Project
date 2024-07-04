@@ -24,6 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+/**
+ * Method to log in programmatically
+ */
 Cypress.Commands.add("login", (email, password) => {
   cy.request("POST", "/users/login", {
     email: email,
@@ -41,4 +44,63 @@ Cypress.Commands.add("login", (email, password) => {
     //     cy.setCookie(name, value)
     // })
   });
+});
+
+/**
+ * Creates a new contact via API
+ */
+Cypress.Commands.add("createContact", (contactInfo) => {
+
+  let contactJson = {
+    firstName: contactInfo.name,
+    lastName: contactInfo.lastName,
+  }
+
+  contactInfo.birthdate && (contactJson.birthdate = contactInfo.birthdate)
+  contactInfo.email && (contactJson.email = contactInfo.email)
+  contactInfo.phone && (contactJson.phone = contactInfo.phone)
+  contactInfo.street1 && (contactJson.street1 = contactInfo.street1)
+  contactInfo.street2 && (contactJson.street2 = contactInfo.street2)
+  contactInfo.city && (contactJson.city = contactInfo.city)
+  contactInfo.stateProvince && (contactJson.stateProvince = contactInfo.stateProvince)
+  contactInfo.postalCode && (contactJson.postalCode = contactInfo.postalCode)
+  contactInfo.country && (contactJson.country = contactInfo.country)
+
+  cy.getCookie('token').should('have.property', 'value')
+
+  let tokenCookie
+  cy.getCookie('token').then((cookie) => {
+    tokenCookie = cookie.value
+    cy.request({
+      method: 'POST',
+      url:'/contacts',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokenCookie}`,
+      },
+      body: contactInfo
+    });
+  })
+});
+
+/**
+ * Creates a new contact via API
+ */
+Cypress.Commands.add("deleteAllContacts", (contactsRes) => {
+  let tokenCookie
+
+  cy.getCookie('token').then((cookie) => {
+    tokenCookie = cookie.value
+    
+    contactsRes.forEach(contact => {
+        cy.request({
+          method: 'DELETE',
+          url:`/contacts/${contact._id}`,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tokenCookie}`,
+          }
+        });
+    });
+  })
 });

@@ -55,17 +55,17 @@ class AddContactPage {
 
   //#region Actions
   fillOutForm(formInfo) {
-    formInfo.name && this.getNameFld().type(formInfo.name)
-    formInfo.lastName && this.getLastNameFld().type(formInfo.lastName)
-    formInfo.birth && this.getDateOfBirthFld().type(formInfo.birth)
-    formInfo.email && this.getEmailFld().type(formInfo.email)
-    formInfo.phone && this.getPhoneFld().type(formInfo.phone)
-    formInfo.street1 && this.getStreetAdd1Fld().type(formInfo.street1)
-    formInfo.street2 && this.getStreetAdd2Fld().type(formInfo.street2)
-    formInfo.city && this.getCityFld().type(formInfo.city)
-    formInfo.state && this.getStateOrProvinceFld().type(formInfo.state)
-    formInfo.postal && this.getPostalCodeFld().type(formInfo.postal)
-    formInfo.country && this.getCountryFld().type(formInfo.country)
+    formInfo.firstName && this.getNameFld().clear().type(formInfo.firstName)
+    formInfo.lastName && this.getLastNameFld().clear().type(formInfo.lastName)
+    formInfo.birthdate && this.getDateOfBirthFld().clear().type(formInfo.birthdate)
+    formInfo.email && this.getEmailFld().clear().type(formInfo.email)
+    formInfo.phone && this.getPhoneFld().clear().type(formInfo.phone)
+    formInfo.street1 && this.getStreetAdd1Fld().clear().type(formInfo.street1)
+    formInfo.street2 && this.getStreetAdd2Fld().clear().type(formInfo.street2)
+    formInfo.city && this.getCityFld().clear().type(formInfo.city)
+    formInfo.stateProvince && this.getStateOrProvinceFld().clear().type(formInfo.stateProvince)
+    formInfo.postalCode && this.getPostalCodeFld().clear().type(formInfo.postalCode)
+    formInfo.country && this.getCountryFld().clear().type(formInfo.country)
   }
 
   clickSubmitBtn(){

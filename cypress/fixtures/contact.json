@@ -1,0 +1,13 @@
+{
+    "firstName": "Automated New",
+    "lastName": "Contact",
+    "birthdate": "1999-01-01",
+    "email": "mail@sds.copm",
+    "phone": "8034542394",
+    "street1": "Address 1",
+    "street2": "Address 2",
+    "city": "City",
+    "stateProvince": "State",
+    "postalCode": "2234",
+    "country": "US"
+}
