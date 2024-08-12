@@ -1,0 +1,44 @@
+name: Cypress Tests GitHub Actions Pipeline
+run-name: Run Cypress tests - Done by @${{ github.actor }}
+
+on:
+  schedule:
+    - cron: '0 0 * * 5'  # Every Friday at midnight (00:00)
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  CYPRESS_BASE_URL: ${{ vars.BASE_URL }}
+  CYPRESS_PASSWORD: ${{ secrets.PASSWORD }}
+  CYPRESS_USERNAME: ${{ secrets.USERNAME }}
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+
+
+#The next job is here as an example, but is never gona execute
+jobs:
+  cypress-run-directly-with-node:
+    if: github.repository == 'nonexstant/branch'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - run: npm ci
+      - run: npm run cy:run

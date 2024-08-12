@@ -28,7 +28,7 @@ describe('@ContactList | Feature', () => {
     }
   })
 
-  it('@CList-01 | Add a new contact',() => {
+  it('@CList-01 @Smoke | Add a new contact',() => {
     contactListPage.clickAddContactBtn()
     addContactPage.fillOutForm(newContactInfo)
     addContactPage.clickSubmitBtn()
@@ -36,7 +36,7 @@ describe('@ContactList | Feature', () => {
     contactListPage.getContactRowByName(newContactInfo.firstName).should('be.visible')
   })
 
-  it('@CList-02 | Delete a contact',() => {
+  it('@CList-02 @Regression | Delete a contact',() => {
     newContactInfo.firstName = 'Automated API'
     cy.createContact(newContactInfo)
     cy.reload()
@@ -46,7 +46,7 @@ describe('@ContactList | Feature', () => {
     contactListPage.getContactRows().should('not.exist')
   })
 
-  it('@CList-03 | Edit a contact',() => {
+  it('@CList-03 @Regression | Edit a contact',() => {
     newContactInfo.firstName = 'Automated API'
     const editContactInfo = {
       firstName: 'Automated Edited',
