@@ -4,6 +4,8 @@ const _ = require('lodash')
 const del = require('del')
 
 module.exports = defineConfig({
+  //Project id for Cypress Cloud
+  projectId: "4479mp",
   //The number of tests for which snapshots and command data are kept in memory.
   numTestsKeptInMemory: 30,
   retries: {

@@ -16,6 +16,8 @@ env:
   CYPRESS_PASSWORD: ${{ secrets.PASSWORD }}
   CYPRESS_USERNAME: ${{ secrets.USERNAME }}
 
+#To-do: Divide in 3 jobs, one executing only the @Login tag, then the @Smoke, then @Regression
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -26,7 +28,11 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-#The next job is here as an example, but is never gona execute
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
+
+#The next job is here as an example, but is never gonna execute
   cypress-run-directly-with-node:
     if: github.repository == 'nonexstant/branch'
     runs-on: ubuntu-22.04
