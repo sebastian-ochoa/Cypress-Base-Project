@@ -26,10 +26,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-
-
 #The next job is here as an example, but is never gona execute
-jobs:
   cypress-run-directly-with-node:
     if: github.repository == 'nonexstant/branch'
     runs-on: ubuntu-22.04
