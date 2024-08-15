@@ -15,6 +15,7 @@ env:
   CYPRESS_BASE_URL: ${{ vars.BASE_URL }}
   CYPRESS_PASSWORD: ${{ secrets.PASSWORD }}
   CYPRESS_USERNAME: ${{ secrets.USERNAME }}
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
 
 jobs:
   cypress-run-login:
@@ -27,9 +28,7 @@ jobs:
         with:
           browser: chrome
           record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
-          grep: '@Login'
+          env: grep='@Login'
     
 
   cypress-run-smoke:
@@ -43,16 +42,11 @@ jobs:
         with:
           browser: chrome
           record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
-          grep: '@Smoke'
+          env: grep='@Smoke'
 
   cypress-run-regression:
     runs-on: ubuntu-22.04
     needs: cypress-run-smoke
-    env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
-          grep: '@Regression'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,6 +55,7 @@ jobs:
         with:
           browser: chrome
           record: true
+          env: grep='@Regression'
 
 
 #The next job is here as an example, but is never gonna execute
