@@ -33,7 +33,7 @@ describe('@ContactList | Feature', () => {
     addContactPage.fillOutForm(newContactInfo)
     addContactPage.clickSubmitBtn()
     //Assertions
-    contactListPage.getContactRowByName(newContactInfo.firstName).should('not.be.visible')
+    contactListPage.getContactRowByName(newContactInfo.firstName).should('be.visible')
   })
 
   it('@CList-02 @Regression | Delete a contact',() => {
