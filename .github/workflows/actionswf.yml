@@ -28,7 +28,7 @@ jobs:
         with:
           browser: chrome
           record: true
-          env: grep='@Login'
+          env: grep=@Login
     
 
   cypress-run-smoke:
@@ -42,7 +42,7 @@ jobs:
         with:
           browser: chrome
           record: true
-          env: grep='@Smoke'
+          env: grep=@Smoke
 
   cypress-run-regression:
     runs-on: ubuntu-22.04
@@ -55,7 +55,7 @@ jobs:
         with:
           browser: chrome
           record: true
-          env: grep='@Regression'
+          env: grep=@Regression
 
 
 #The next job is here as an example, but is never gonna execute
