@@ -18,3 +18,7 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+//Importing grepFilterSpecs feature to filter tags on executions
+import registerCypressGrep from '@cypress/grep/src/support'
+registerCypressGrep()

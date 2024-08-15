@@ -41,6 +41,9 @@ module.exports = defineConfig({
           }
         }
       })
+      //Required to enable the grepFilterSpecs feature
+      require('@cypress/grep/src/plugin')(config)
+      return config
     },
   },
 });

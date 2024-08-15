@@ -16,10 +16,8 @@ env:
   CYPRESS_PASSWORD: ${{ secrets.PASSWORD }}
   CYPRESS_USERNAME: ${{ secrets.USERNAME }}
 
-#To-do: Divide in 3 jobs, one executing only the @Login tag, then the @Smoke, then @Regression
-
 jobs:
-  cypress-run:
+  cypress-run-login:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -31,10 +29,43 @@ jobs:
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
+          grep: "@Login"
+    
+
+  cypress-run-smoke:
+    runs-on: ubuntu-22.04
+    needs: cypress-run-login
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
+          grep: "@Smoke"
+
+  cypress-run-regression:
+    runs-on: ubuntu-22.04
+    needs: cypress-run-smoke
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_CLOUD_KEY }}
+          grep: "@Regression"
+
 
 #The next job is here as an example, but is never gonna execute
   cypress-run-directly-with-node:
-    if: github.repository == 'nonexstant/branch'
+    if: github.repository == 'nonexistent/branch'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
